@@ -52,7 +52,7 @@ transformed parameters {
 model {
  z ~ normal(0,1); 
  v ~ exponential(pow(sigma_s, -1));
- yu ~ multi_normal(inverse(I - phi * W)*X*beta,I*sqrt(sigma_c)); 
+ yu ~ multi_normal(inverse(I - phi * W)*X*beta,sqrt(sigma_c)*inverse(I - phi * W)*inverse(I - phi * W)'); 
  yl ~ multi_normal(H*yu + G*theta + a*v + sigma_s*c*fabs(gamma)*z, b*sigma_s*diag_matrix(v));
  beta ~ normal(0,100);
  theta ~ normal(0,100);
