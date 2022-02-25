@@ -31,8 +31,8 @@ parameters {
   vector[n] yu; // latent school response
   real<lower=-1,upper=1> phi; // spatial parameter
   real<lower=L,upper=U> gamma; // shape parameter
-  real<lower=0> sigma_c; // city variability
-  real<lower=0> sigma_s; // school variability
+  real<lower=0> sigma2_s; // city variability
+  real<lower=0> sigma_q; // school variability
   vector<lower=0>[m] v; // latent variable
   vector<lower=0>[m] z; // latent variable
 }
@@ -51,13 +51,13 @@ transformed parameters {
 
 model {
  z ~ normal(0,1); 
- v ~ exponential(pow(sigma_s, -1));
- yu ~ multi_normal(inverse(I - phi * W)*X*beta,sqrt(sigma_c)*inverse(I - phi * W)*inverse(I - phi * W)'); 
- yl ~ multi_normal(H*yu + G*theta + a*v + sigma_s*c*fabs(gamma)*z, b*sigma_s*diag_matrix(v));
+ v ~ exponential(pow(sigma_q, -1));
+ yu ~ multi_normal(inverse(I - phi * W)*X*beta,sigma2_s*inverse(I - phi * W)*inverse(I - phi * W)'); 
+ yl ~ multi_normal(H*yu + G*theta + a*v + sigma_q*c*fabs(gamma)*z, b*sigma_q*diag_matrix(v));
  beta ~ normal(0,100);
  theta ~ normal(0,100);
  phi ~ uniform(-1,1);
- sigma_s ~ student_t(5,0,100);
- sigma_c ~ student_t(5,0,100);
+ sigma_q ~ student_t(5,0,100);
+ sigma2_s ~ student_t(5,0,100);
  gamma ~ student_t(1,0,1);
 }
