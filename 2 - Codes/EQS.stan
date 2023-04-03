@@ -48,9 +48,11 @@ model {
  matrix[m,m] Sigma =  b * sigma * D * diag_matrix(v) * D';    // response variable covariance matrix
   
  z ~ normal(0,1);                 // location-scale mixture latent variable 'z'
- gamma ~ uniform(L,U);            // shape parameter prior distribution
  v ~ exponential(pow(sigma, -1)); // location-scale mixture latent variable 'v'
+ 
  y ~ multi_normal(Mu, Sigma);     // response variable distribution
+ 
+ gamma ~ uniform(L,U);            // shape parameter prior distribution
  beta ~ normal(0,100);            // coefficients prior distribution
  phi ~ uniform(-1,1);             // spatial parameter prior distribution
  sigma ~ cauchy(0,100);           // scale parameter prior distribution
