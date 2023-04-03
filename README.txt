@@ -1,10 +1,10 @@
 Outline
 
 Data
-All the theoretical foundation and usefull references
+All the theoretical foundation and usefull references 
 
 1 - Data
-Contains useful data
+Data Contains the datasets used
 
 2 - Codes
-Contais the stan model for the EQS and HEQS model
+Contains the stan code for the QS, EQS, HEQS, HN and HNS models
